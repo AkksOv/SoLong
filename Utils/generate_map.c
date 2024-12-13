@@ -1,4 +1,5 @@
 #include "../GetNextLine/get_next_line.h"
+#include "utils.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,7 +18,6 @@ static void fill_map(char **res, int fd, int size)
     res[i] = NULL;
 }
 
-
 char **generate_map(char *str)
 {
     int fd;
@@ -31,9 +31,10 @@ char **generate_map(char *str)
     close(fd);
     fd = open(str, O_RDONLY);
     map = malloc(sizeof(char *) * (size + 1));
+    if(!map)
+        return (NULL);
     fill_map(map, fd, size);
-
-    for(int j = 0; map[j]; j++)
-        printf("%s", map[j]);
-    return map;
+    if(check_map_validity(map, size, str_len(map[0]) - 1))
+        return (map);
+    return (NULL);
 }
