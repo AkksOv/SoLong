@@ -1,6 +1,11 @@
 #include <stdlib.h>
 #include "utils.h"
 
+
+
+
+#include <stdio.h>
+
 char **copymap(char **map, int size)
 {
     char **res;
@@ -21,9 +26,9 @@ char **copymap(char **map, int size)
 
 int backtrack(char **map, int y, int x)
 {
-    if(map[y][x] == '1')
+    if(map[y][x] != '0' && map[y][x] != 'P' && map[y][x] != 'E')
         return 0;
-    if(map[y][x] != '1' && map[y][x] != 'V')
+    if(map[y][x] == 'E' || map[y][x] == '0' || map[y][x] == 'P')
         map[y][x] = 'V';
     backtrack(map, y + 1, x);
     backtrack(map, y, x + 1);
@@ -43,7 +48,7 @@ int checkmap(char **map, int x)
         j = 0;
         while(j < x)
         {
-            if(map[i][j] != '1' || map[i][j] != 'V')
+            if(map[i][j] != '1' && map[i][j] != 'V')
                 return (0);
             j++;
         }
@@ -69,7 +74,7 @@ int check_path_validity(char **map, int y, int x, t_Playerpos playerpos)
 {
     char **mapcpy;
 
-    mapcpy = copymap(map, y);
+    mapcpy = copymap(map, y);   
     backtrack(mapcpy, playerpos.y, playerpos.x);
     if(!checkmap(mapcpy, x))
         return (0);

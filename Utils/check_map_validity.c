@@ -1,4 +1,9 @@
 #include "utils.h"
+#include <stdlib.h>
+
+#include <stdio.h>
+
+
 
 int check_size(char **map, int size)
 {
@@ -64,23 +69,27 @@ int check_player_exit(char **map,int y, int x, t_Playerpos *playerpos)
             }
             if(map[i][j] == 'E')
                 exit++;
+            j++;
         }
+        i++;
     }
     return (player == 1 && exit == 1);
 }
+
+
+
 
 int check_map_validity(char **map, int y, int x)
 {
     t_Playerpos playerpos;
 
-    if(!check_size(map, x))
-        return (0);
-    if(!check_wall(map, y, x))
-        return (0);
-    if(!check_player_exit(map, y, x, &playerpos))
-        return (0);
+    if (!check_size(map, x))
+        return 0;
+    if (!check_wall(map, y, x))
+        return 0;
+    if (!check_player_exit(map, y, x, &playerpos))
+        return 0;
     if(!check_path_validity(map, y, x, playerpos))
-        return (0);
-    return (1);
-}       
-
+        return 0;
+    return 1;
+}

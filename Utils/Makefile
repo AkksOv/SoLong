@@ -1,11 +1,8 @@
-# Nom de l'exécutable
-NAME = utils
+# Nom de la bibliothèque (au lieu de l'exécutable)
+NAME = utils.a
 
 # Liste des fichiers sources
-SRCS =	check_map_validity.c / 
-		check_map_validity2.c /
-		generatemap.c /
-		utils.c
+SRCS = check_map_validity.c check_map_validity2.c generate_map.c utils.c
 
 # Compiler et flags
 CC = cc
@@ -14,13 +11,13 @@ CFLAGS = -Wall -Wextra -Werror
 # Fichiers objets générés à partir des sources
 OBJS = $(SRCS:.c=.o)
 
-# Règle principale
+# Règle principale (création de la bibliothèque)
 all: $(NAME)
 
-# Compilation de l'exécutable
+# Création de la bibliothèque statique
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@echo "Compilation réussie !"
+	ar rcs $(NAME) $(OBJS)
+	@echo "Bibliothèque statique créée avec succès !"
 
 # Compilation des fichiers objets
 %.o: %.c
@@ -31,10 +28,10 @@ clean:
 	@rm -f $(OBJS)
 	@echo "Fichiers objets supprimés."
 
-# Nettoyage complet (objets + exécutable)
+# Nettoyage complet (objets + bibliothèque)
 fclean: clean
 	@rm -f $(NAME)
-	@echo "Exécutable supprimé."
+	@echo "Bibliothèque supprimée."
 
 # Recompilation complète
 re: fclean all
