@@ -10,6 +10,16 @@ int str_len(char *s)
     return (i);
 }
 
+int mapy(char **map)
+{
+    int i;
+
+    i = 0;
+    while(map[i])
+        i++;
+    return (i);
+}
+
 char *ft_strdup(char *s)
 {
     int size;

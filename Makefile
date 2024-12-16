@@ -4,11 +4,11 @@ NAME = Solong
 # Répertoires contenant les bibliothèques et les sources
 GNL_DIR = GetNextLine
 UTILS_DIR = Utils
-
+GAME_DIR = game
 # Bibliothèques compilées
 GNL_LIB = $(GNL_DIR)/get_next_line.a
 UTILS_LIB = $(UTILS_DIR)/utils.a
-
+GAME_LIB = $(GAME_DIR)/game.a
 # Fichiers source et objets du programme principal
 SRCS = main.c
 OBJS = $(SRCS:.c=.o)
@@ -24,8 +24,8 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(GNL_LIB) $(UTILS_LIB) $(NAME)
 
 # Construction de l'exécutable final
-$(NAME): $(OBJS) $(GNL_LIB) $(UTILS_LIB)
-	$(CC) $(CFLAGS) $(OBJS)  -L$(UTILS_DIR) $(UTILS_LIB) -L$(GNL_DIR) $(GNL_LIB) -o $(NAME)
+$(NAME): $(OBJS) $(GNL_LIB) $(UTILS_LIB) $(GAME_LIB)
+	$(CC) $(CFLAGS) $(OBJS) -L$(GAME_DIR) $(GAME_LIB) -L$(UTILS_DIR) $(UTILS_LIB) -L$(GNL_DIR) $(GNL_LIB) -o $(NAME)
 	@echo "Exécutable $(NAME) créé avec succès !"
 
 # Compilation des fichiers objets du programme principal
