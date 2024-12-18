@@ -26,9 +26,9 @@ char **copymap(char **map, int size)
 
 int backtrack(char **map, int y, int x)
 {
-    if(map[y][x] != '0' && map[y][x] != 'P' && map[y][x] != 'E')
+    if(map[y][x] != '0' && map[y][x] != 'P' && map[y][x] != 'E'  && map[y][x] != 'C')
         return 0;
-    if(map[y][x] == 'E' || map[y][x] == '0' || map[y][x] == 'P')
+    if(map[y][x] == 'E' || map[y][x] == '0' || map[y][x] == 'P' || map[y][x] == 'C')
         map[y][x] = 'V';
     backtrack(map, y + 1, x);
     backtrack(map, y, x + 1);
