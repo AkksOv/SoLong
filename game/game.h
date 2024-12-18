@@ -28,5 +28,6 @@ void    init_data(t_Data *data, char **map);
 void    render_map(t_Data *data);
 int     movechar(t_Data *data, int y, int x);
 void    exit_prog(t_Data *data);
+int     keys(int keycode, t_Data *data);
 
 #endif
