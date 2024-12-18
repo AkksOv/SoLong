@@ -7,12 +7,12 @@
 #include "game.h"
 #include "../Utils/utils.h"
 #include "../minilibx-linux/mlx.h"
+#include "../printf/ft_printf.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 int keys(int keycode, t_Data *data)
 {
-    //printf("Key pressed: %d\n", keycode);
+    //ft_printf("Key pressed: %d\n", keycode);
     static int  count = 0;
     if (keycode == ESC)
         exit_prog(data);
@@ -24,6 +24,6 @@ int keys(int keycode, t_Data *data)
         count += movechar(data, 0, 1);  
     if(keycode == A && data->map[data->player.pos_y][data->player.pos_x - 1] != '1')
         count += movechar(data, 0, -1);
-    printf("moves: %d\n", count);
+    ft_printf("moves: %d\n", count);
     return 1;
 }
