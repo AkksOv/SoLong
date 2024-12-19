@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_controls.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jepenoy <jepenoy@student.42.fr>            #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024-12-19 14:42:35 by jepenoy           #+#    #+#             */
+/*   Updated: 2024-12-19 14:42:35 by jepenoy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #define ESC     65307
 #define W       119
 #define A	    97
@@ -10,20 +22,24 @@
 #include "../printf/ft_printf.h"
 #include <stdlib.h>
 
-int keys(int keycode, t_Data *data)
+int	keys(int keycode, t_Data *data)
 {
-    //ft_printf("Key pressed: %d\n", keycode);
-    static int  count = 0;
-    if (keycode == ESC)
-        exit_prog(data);
-    if(keycode == W && data->map[data->player.pos_y - 1][data->player.pos_x] != '1')
-        count += movechar(data, -1, 0);  
-    if(keycode == S && data->map[data->player.pos_y + 1][data->player.pos_x] != '1')
-        count += movechar(data, 1, 0);  
-    if(keycode == D && data->map[data->player.pos_y][data->player.pos_x + 1] != '1')
-        count += movechar(data, 0, 1);  
-    if(keycode == A && data->map[data->player.pos_y][data->player.pos_x - 1] != '1')
-        count += movechar(data, 0, -1);
-    ft_printf("moves: %d\n", count);
-    return 1;
+	static int	count = 0;
+	int			x;
+	int			y;
+
+	x = data->player.pos_x;
+	y = data->player.pos_y;
+	if (keycode == ESC)
+		exit_prog(data);
+	if (keycode == W && data->map[y - 1][x] != '1')
+		count += movechar(data, -1, 0);
+	if (keycode == S && data->map[y + 1][x] != '1')
+		count += movechar(data, 1, 0);
+	if (keycode == D && data->map[y][x + 1] != '1')
+		count += movechar(data, 0, 1);
+	if (keycode == A && data->map[y][x - 1] != '1')
+		count += movechar(data, 0, -1);
+	ft_printf("moves: %d\n", count);
+	return (1);
 }

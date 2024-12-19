@@ -6,7 +6,7 @@ typedef struct t_player
     int     pos_x;
     int     pos_y;
     int     collect;
-    void    *imgplayer[4];
+    void    *imgp[4];
 }			t_Player;
 
 
@@ -19,6 +19,7 @@ typedef struct t_data
     void    *imgwall;
     void    *imgfloor;
     void    *imgcollect;
+    void    *imgexit;
     t_Player    player;
 }			t_Data;
 
