@@ -60,6 +60,21 @@ static void	select_char(t_Data *data, int i, int j)
 			data->imgexit, j * 64, i * 64);
 }
 
+void	render_enemies(t_Data *data)
+{
+	int i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (i < data->enc)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, data->imgen[k],
+			data->enemies[i].pos_x * 64, data->enemies[i].pos_y * 64);
+		i++;
+	}
+}
+
 void	render_map(t_Data *data)
 {
 	int	i;

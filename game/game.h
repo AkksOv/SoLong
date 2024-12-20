@@ -21,17 +21,27 @@ typedef struct t_player
 	void	*imgp[4];
 }			t_Player;
 
+typedef struct t_enemy
+{
+	int		pos_x;
+	int		pos_y;
+	int		current;
+}			t_Enemy;
+
 typedef struct t_data
 {
 	void		*mlx;
 	void		*win;
 	char		**map;
 	int			collect;
+	int			enc;
 	void		*imgwall;
 	void		*imgfloor;
 	void		*imgcollect;
 	void		*imgexit;
+	void		*imgen[4];
 	t_Player	player;
+	t_Enemy		*enemies;
 }			t_Data;
 
 void	init_data(t_Data *data, char **map);
@@ -39,5 +49,6 @@ void	render_map(t_Data *data);
 int		movechar(t_Data *data, int y, int x);
 void	exit_prog(t_Data *data);
 int		keys(int keycode, t_Data *data);
+void	render_enemies(t_Data *data);
 
 #endif

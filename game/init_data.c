@@ -16,6 +16,38 @@
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
 
+
+
+
+
+# include <stdio.h>
+
+void	init_enemies(t_Data *data)
+{
+	int	i;
+	int	j;
+	int k;
+
+	k = 0;
+	i = 0;
+	data->enemies = malloc(sizeof(t_Enemy) * (data->enc));
+	while (data->map[i])
+	{
+		j = 0;
+		while (j < (str_len(data->map[0]) - 1))
+		{
+			if (data->map[i][j] == 'X')
+			{
+				data->enemies[k].pos_y = i;
+				data->enemies[k].pos_x = j;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	init_playerpos(t_Data *data)
 {
 	int	i;
@@ -34,6 +66,8 @@ void	init_playerpos(t_Data *data)
 			}
 			if (data->map[i][j] == 'C')
 				data->collect++;
+			if (data->map[i][j] == 'X')
+				data->enc++;
 			j++;
 		}
 		i++;
@@ -55,6 +89,10 @@ void	init_images(t_Data *data)
 	data->player.imgp[1] = mlx_xpm_file_to_image(data->mlx, R "p2.xpm", &h, &w);
 	data->player.imgp[2] = mlx_xpm_file_to_image(data->mlx, R "p3.xpm", &h, &w);
 	data->player.imgp[3] = mlx_xpm_file_to_image(data->mlx, R "p4.xpm", &h, &w);
+	data->imgen[0] = mlx_xpm_file_to_image(data->mlx, R "m1.xpm", &h, &w);
+	data->imgen[1] = mlx_xpm_file_to_image(data->mlx, R "m2.xpm", &h, &w);
+	data->imgen[2] = mlx_xpm_file_to_image(data->mlx, R "m3.xpm", &h, &w);
+	data->imgen[3] = mlx_xpm_file_to_image(data->mlx, R "m4.xpm", &h, &w);
 }
 
 void	init_data(t_Data *data, char **map)
@@ -65,12 +103,14 @@ void	init_data(t_Data *data, char **map)
 			(str_len(map[0]) - 1) * 64, mapy(map) * 64, "So Long");
 	init_images(data);
 	init_playerpos(data);
+	init_enemies(data);
 }
 
 void	exit_prog(t_Data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	free(data->map);
+	free(data->enemies);
 	free(data);
 	exit(0);
 }

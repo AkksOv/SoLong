@@ -37,6 +37,7 @@ int	main(int argc, char *argv[])
 	data = malloc(sizeof(t_Data));
 	init_data(data, map);
 	render_map(data);
+	render_enemies(data);
 	mlx_hook(data->win, 2, 1L << 0, keys, data);
 	mlx_loop(data->mlx);
 }
