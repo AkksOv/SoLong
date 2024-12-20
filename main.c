@@ -17,6 +17,18 @@
 #include "printf/ft_printf.h"
 #include <stdlib.h>
 
+int	game_loop(t_Data *data)
+{
+	static int	count = 0;
+
+	if(count % 8000 == 0)
+		render_enemies(data);
+	if(count == 100000000)
+		count = 0;
+	count++;
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_Data	*data;
@@ -37,7 +49,7 @@ int	main(int argc, char *argv[])
 	data = malloc(sizeof(t_Data));
 	init_data(data, map);
 	render_map(data);
-	render_enemies(data);
 	mlx_hook(data->win, 2, 1L << 0, keys, data);
+	mlx_loop_hook(data->mlx, game_loop, data);
 	mlx_loop(data->mlx);
 }
