@@ -41,7 +41,7 @@ int	movechar(t_Data *data, int y, int x)
 	return (1);
 }
 
-static void pute(t_Data *data, int i, int j)
+static void	select_char(t_Data *data, int i, int j)
 {
 	if (data->map[i][j] == '0')
 		mlx_put_image_to_window(data->mlx, data->win,
@@ -70,6 +70,6 @@ void	render_map(t_Data *data)
 	{
 		j = -1;
 		while (++j < str_len(data->map[0]) - 1)
-			pute(data, i, j);
+			select_char(data, i, j);
 	}
 }
