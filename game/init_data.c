@@ -108,9 +108,15 @@ void	init_data(t_Data *data, char **map)
 
 void	exit_prog(t_Data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
+	int	i;
+
+	i = -1;
+	while(++i, data->map)
+		free(data->map[i]);
 	free(data->map);
 	free(data->enemies);
 	free(data);
+	mlx_destroy_window(data->mlx, data->win);
+
 	exit(0);
 }

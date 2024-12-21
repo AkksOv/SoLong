@@ -17,12 +17,23 @@
 #include "printf/ft_printf.h"
 #include <stdlib.h>
 
+int	close_with_mouse(int x, int y, void *data)
+{
+    (void)x;
+    (void)y;
+    exit_prog(data);
+	return (0);
+}
+
+
 int	game_loop(t_Data *data)
 {
 	static int	count = 0;
 
 	if(count % 8000 == 0)
 		render_enemies(data);
+	if(count % 18000 == 0)
+		move_enemies(data, count);
 	if(count == 100000000)
 		count = 0;
 	count++;
@@ -50,6 +61,7 @@ int	main(int argc, char *argv[])
 	init_data(data, map);
 	render_map(data);
 	mlx_hook(data->win, 2, 1L << 0, keys, data);
+	mlx_hook(data->win, 17, 0, close_with_mouse, data);
 	mlx_loop_hook(data->mlx, game_loop, data);
 	mlx_loop(data->mlx);
 }

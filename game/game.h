@@ -50,5 +50,6 @@ int		movechar(t_Data *data, int y, int x);
 void	exit_prog(t_Data *data);
 int		keys(int keycode, t_Data *data);
 void	render_enemies(t_Data *data);
+void    move_enemies(t_Data *data, int seed);
 
 #endif

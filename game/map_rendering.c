@@ -23,6 +23,8 @@ int	movechar(t_Data *data, int y, int x)
 		exit_prog(data);
 	else if (data->map[data->player.pos_y + y][data->player.pos_x + x] == 'E')
 		return (0);
+	if (data->map[data->player.pos_y + y][data->player.pos_x + x] == 'X')
+		exit_prog(data);
 	i += x;
 	if (i > 3)
 		i = 0;
@@ -67,9 +69,7 @@ void render_enemies(t_Data *data)
 
     i = 0;
     if (k == 3)
-	{
 		k = 0;
-	}
 	while (i < data->enc)
 	{
 		mlx_put_image_to_window(data->mlx, data->win, data->imgen[k],
