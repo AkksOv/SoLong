@@ -26,15 +26,16 @@ int	close_with_mouse(void *data)
 int	game_loop(t_Data *data)
 {
 	static int	count = 0;
-	static	int	door = 1;
+	static int	door = 1;
 
-	if (count % 8000 == 0)
+	if (count % 12000 == 0)
 		render_enemies(data);
 	if (count % 18000 == 0)
 		move_enemies(data, count);
 	if (count == 100000000)
 		count = 0;
-	if(data->collect == data->player.collect && door <= 2 && count % 10000 == 0) 
+	if (data->collect == data->player.collect
+		&& door <= 2 && count % 10000 == 0)
 	{
 		mlx_put_image_to_window(data->mlx, data->win,
 			data->imgexit[door], data->exit.pos_x * 64, data->exit.pos_y * 64);

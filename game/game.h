@@ -31,7 +31,6 @@ typedef struct t_enemy
 {
 	int		pos_x;
 	int		pos_y;
-	int		current;
 }			t_Enemy;
 
 typedef struct t_data
