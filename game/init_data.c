@@ -12,25 +12,22 @@
 
 #define R "Ressources/"
 #include "game.h"
+#include "../printf/ft_printf.h"
 #include "../Utils/utils.h"
 #include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
-
-
-
-
-
-# include <stdio.h>
 
 void	init_enemies(t_Data *data)
 {
 	int	i;
 	int	j;
-	int k;
+	int	k;
 
 	k = 0;
 	i = 0;
 	data->enemies = malloc(sizeof(t_Enemy) * (data->enc));
+	if (!data->enemies)
+		return ;
 	while (data->map[i])
 	{
 		j = 0;
@@ -53,11 +50,11 @@ void	init_playerpos(t_Data *data)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (data->map[i])
+	i = -1;
+	while (++i, data->map[i])
 	{
-		j = 0;
-		while (j < (str_len(data->map[0]) - 1))
+		j = -1;
+		while (++j < (str_len(data->map[0]) - 1))
 		{
 			if (data->map[i][j] == 'P')
 			{
@@ -68,9 +65,12 @@ void	init_playerpos(t_Data *data)
 				data->collect++;
 			if (data->map[i][j] == 'X')
 				data->enc++;
-			j++;
+			if (data->map[i][j] == 'E')
+			{
+				data->exit.pos_x = j;
+				data->exit.pos_y = i;
+			}
 		}
-		i++;
 	}
 }
 
@@ -84,7 +84,9 @@ void	init_images(t_Data *data)
 	data->imgfloor = mlx_xpm_file_to_image(data->mlx, R "Floor.xpm", &h, &w);
 	data->imgwall = mlx_xpm_file_to_image(data->mlx, R "wall.xpm", &h, &w);
 	data->imgcollect = mlx_xpm_file_to_image(data->mlx, R "colle.xpm", &h, &w);
-	data->imgexit = mlx_xpm_file_to_image(data->mlx, R "door1.xpm", &h, &w);
+	data->imgexit[0] = mlx_xpm_file_to_image(data->mlx, R "door1.xpm", &h, &w);
+	data->imgexit[1] = mlx_xpm_file_to_image(data->mlx, R "door2.xpm", &h, &w);
+	data->imgexit[2] = mlx_xpm_file_to_image(data->mlx, R "door3.xpm", &h, &w);
 	data->player.imgp[0] = mlx_xpm_file_to_image(data->mlx, R "p1.xpm", &h, &w);
 	data->player.imgp[1] = mlx_xpm_file_to_image(data->mlx, R "p2.xpm", &h, &w);
 	data->player.imgp[2] = mlx_xpm_file_to_image(data->mlx, R "p3.xpm", &h, &w);
@@ -93,6 +95,8 @@ void	init_images(t_Data *data)
 	data->imgen[1] = mlx_xpm_file_to_image(data->mlx, R "m2.xpm", &h, &w);
 	data->imgen[2] = mlx_xpm_file_to_image(data->mlx, R "m3.xpm", &h, &w);
 	data->imgen[3] = mlx_xpm_file_to_image(data->mlx, R "m4.xpm", &h, &w);
+	data->imgen[4] = mlx_xpm_file_to_image(data->mlx, R "m5.xpm", &h, &w);
+	data->imgen[5] = mlx_xpm_file_to_image(data->mlx, R "m6.xpm", &h, &w);
 }
 
 void	init_data(t_Data *data, char **map)
@@ -106,17 +110,22 @@ void	init_data(t_Data *data, char **map)
 	init_enemies(data);
 }
 
-void	exit_prog(t_Data *data)
+void	exit_prog(t_Data *data, char *exitmsg)
 {
 	int	i;
 
 	i = -1;
-	while(++i, data->map)
+	if (data->mlx && data->win)
+	{
+		clear_images(data);
+		mlx_destroy_window(data->mlx, data->win);
+	}
+	while (++i, data->map[i])
 		free(data->map[i]);
+	free(data->map[i]);
 	free(data->map);
 	free(data->enemies);
 	free(data);
-	mlx_destroy_window(data->mlx, data->win);
-
+	ft_printf("%s\n", exitmsg);
 	exit(0);
 }

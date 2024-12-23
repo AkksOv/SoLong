@@ -50,5 +50,7 @@ char	**generate_map(char *str)
 	fill_map(map, fd, size);
 	if (check_map_validity(map, size, str_len(map[0]) - 1))
 		return (map);
+	else
+		freecpy(map);
 	return (NULL);
 }

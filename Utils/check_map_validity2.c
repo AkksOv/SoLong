@@ -57,7 +57,7 @@ int	checkmap(char **map, int x)
 		j = 0;
 		while (j < x)
 		{
-			if (map[i][j] != '1' && map[i][j] != 'V')
+			if (map[i][j] != '1' && map[i][j] != 'V' && map[i][j] != '0')
 				return (0);
 			j++;
 		}
@@ -76,6 +76,7 @@ void	freecpy(char **map)
 		free(map[i]);
 		i++;
 	}
+	free(map[i]);
 	free(map);
 }
 

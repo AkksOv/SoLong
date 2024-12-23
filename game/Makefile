@@ -2,7 +2,7 @@
 NAME = game.a
 
 # Liste des fichiers sources
-SRCS = init_data.c map_rendering.c game_controls.c enemy.c
+SRCS = init_data.c map_rendering.c game_controls.c enemy.c counter.c clean_files.c
 
 # Compiler et flags
 CC = cc

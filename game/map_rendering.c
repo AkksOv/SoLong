@@ -20,11 +20,11 @@ int	movechar(t_Data *data, int y, int x)
 
 	if (data->map[data->player.pos_y + y][data->player.pos_x + x] == 'E' &&
 			data->collect == data->player.collect)
-		exit_prog(data);
+		exit_prog(data, "Victory !");
 	else if (data->map[data->player.pos_y + y][data->player.pos_x + x] == 'E')
 		return (0);
 	if (data->map[data->player.pos_y + y][data->player.pos_x + x] == 'X')
-		exit_prog(data);
+		exit_prog(data, "You are dead :(");
 	i += x;
 	if (i > 3)
 		i = 0;
@@ -59,16 +59,16 @@ static void	select_char(t_Data *data, int i, int j)
 			data->imgcollect, j * 64, i * 64);
 	if (data->map[i][j] == 'E')
 		mlx_put_image_to_window(data->mlx, data->win,
-			data->imgexit, j * 64, i * 64);
+			data->imgexit[0], j * 64, i * 64);
 }
 
-void render_enemies(t_Data *data)
+void	render_enemies(t_Data *data)
 {
-    int i;
-    static int k = 0;
+	int			i;
+	static int	k = 0;
 
-    i = 0;
-    if (k == 3)
+	i = 0;
+	if (k == 5)
 		k = 0;
 	while (i < data->enc)
 	{
@@ -78,7 +78,6 @@ void render_enemies(t_Data *data)
 	}
 	k++;
 }
-
 
 void	render_map(t_Data *data)
 {
@@ -92,4 +91,5 @@ void	render_map(t_Data *data)
 		while (++j < str_len(data->map[0]) - 1)
 			select_char(data, i, j);
 	}
+	draw_rectangle(data);
 }

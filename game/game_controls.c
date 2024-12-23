@@ -21,6 +21,7 @@
 #include "../minilibx-linux/mlx.h"
 #include "../printf/ft_printf.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 int	keys(int keycode, t_Data *data)
 {
@@ -31,7 +32,7 @@ int	keys(int keycode, t_Data *data)
 	x = data->player.pos_x;
 	y = data->player.pos_y;
 	if (keycode == ESC)
-		exit_prog(data);
+		exit_prog(data, "Goodbye");
 	if (keycode == W && data->map[y - 1][x] != '1')
 		count += movechar(data, -1, 0);
 	if (keycode == S && data->map[y + 1][x] != '1')
@@ -40,6 +41,6 @@ int	keys(int keycode, t_Data *data)
 		count += movechar(data, 0, 1);
 	if (keycode == A && data->map[y][x - 1] != '1')
 		count += movechar(data, 0, -1);
-	ft_printf("moves: %d\n", count);
+	show_counter(data);
 	return (1);
 }
