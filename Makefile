@@ -1,6 +1,6 @@
 
 # Nom de l'exécutable final
-NAME = Solong
+NAME = so_long
 
 # Répertoires contenant les bibliothèques et les sources
 GNL_DIR = GetNextLine

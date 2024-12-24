@@ -122,7 +122,6 @@ void	exit_prog(t_Data *data, char *exitmsg)
 	}
 	while (++i, data->map[i])
 		free(data->map[i]);
-	free(data->map[i]);
 	free(data->map);
 	free(data->enemies);
 	free(data);

@@ -85,8 +85,11 @@ char	*ft_itoa(int n)
 void	show_counter(t_Data *data)
 {
 	static int	i = 0;
+	char *num;
 
+	num = ft_itoa(i);
 	draw_rectangle(data);
-	mlx_string_put(data->mlx, data->win, 40, 25, 0xFFFFFF, ft_itoa(i));
+	mlx_string_put(data->mlx, data->win, 40, 25, 0xFFFFFF, num);
 	i++;
+	free(num);
 }
